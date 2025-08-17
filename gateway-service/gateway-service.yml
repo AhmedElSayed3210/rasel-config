@@ -1,0 +1,40 @@
+allowed-to-use-header-based-auth-ips: "0:0:0:0:0:0:0:1,127.0.0.1"
+
+server:
+  port: 6060
+  max-http-header-size: 10MB
+  netty:
+    server:
+      connection-timeout: 600s
+    request:
+      max-content-length: 50MB
+
+spring:
+  application:
+    name: gateway-service
+  datasource:
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 10
+      idle-timeout: 300000
+  cloud:
+    gateway:
+      httpclient:
+        response-timeout: 600s
+      globalcors:
+        corsConfigurations:
+          "[/**]":
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+      routes:
+        - id: integration-service
+          uri: http://localhost:6061
+          predicates:
+            - Path=/integration/**
+          
+timeout:
+  connect: 60000
+  read: 60000
+  write: 60000
+  response: 60000
