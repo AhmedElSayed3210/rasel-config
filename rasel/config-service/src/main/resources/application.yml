@@ -1,0 +1,25 @@
+# application.yml for config-service
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-service
+  profiles:
+    active: local
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/AhmedElSayed3210/rasel-config.git
+          default-label: 'main'
+          search-paths: '/{application}'
+          clone-on-start: true
+#          username: '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'
+#          password:
+        health:
+          repositories:
+            config-service:
+              label: main
+              name: config-service
+              profiles: local
