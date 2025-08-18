@@ -1,14 +1,31 @@
 server:
-  port: 8089
-
+  port: 6060
+  max-http-header-size: 10MB
+  netty:
+    server:
+      connection-timeout: 600s
+    request:
+      max-content-length: 50MB
 spring:
   application:
     name: gateway-service
+  datasource:
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 10
+      idle-timeout: 300000
   cloud:
     gateway:
+      httpclient:
+        response-timeout: 600s
+      globalcors:
+        corsConfigurations:
+          "[/**]":
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
       routes:
         - id: integration-service
           uri: http://localhost:6061
           predicates:
             - Path=/integration/**
-
