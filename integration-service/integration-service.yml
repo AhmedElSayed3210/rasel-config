@@ -1,7 +1,18 @@
+# SIT
 spring:
   application:
     name: integration-service
-    
+
+  datasource:
+    url: jdbc:oracle:thin:@10.21.35.207:1521:wbmthd
+    username: ecmsapp-sit
+    password: oracle
+    driver-class-name: oracle.jdbc.OracleDriver
+
+  jpa:
+    database-platform: org.hibernate.dialect.OracleDialect
+    hibernate:
+      ddl-auto: none
+
 server:
   port: 6061
-  
